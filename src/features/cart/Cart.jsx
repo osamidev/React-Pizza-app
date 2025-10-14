@@ -39,15 +39,20 @@ function Cart() {
         Your cart, %NAME%
       </h2>
 
-      {cart.map((item) => (
-        <CartItem item={item} key={item.key} />
-      ))}
-      <div>
+      <ul className="mt-3 divide-y divide-stone-200">
+        {cart.map((item) => (
+          <CartItem item={item} key={item.key} />
+        ))}
+      </ul>
+
+      <div className="mt-7 flex items-center gap-5">
         {/* <Link to="/order/new">Order pizzas</Link> */}
-        <Button type="small" to="/order/new">
+        <Button type="primary" to="/order/new">
           Order pizzas
         </Button>
-        <button>Clear cart</button>
+        <Button type="secondary">
+          Clear cart
+        </Button>
       </div>
     </div>
   );
