@@ -3,7 +3,6 @@ import Loader from './Loader';
 function Home() {
   return (
     <div className="my-10 text-center">
-      {true && <Loader />}
       <h1 className="mb-8 font-mono text-xl font-semibold md:text-3xl">
         The best pizza.
         <br />
