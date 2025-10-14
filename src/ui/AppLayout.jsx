@@ -5,8 +5,10 @@ import {
 import CartOverview from '../features/cart/CartOverview';
 import Header from './Header';
 import Loader from './Loader';
+import { useState } from 'react';
 
 function AppLayout() {
+  const [counter] = useState(0);
   const navigation = useNavigation();
   const isLoading =
     navigation.state === 'loading';
