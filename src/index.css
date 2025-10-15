@@ -51,3 +51,7 @@
     @apply flex items-center justify-center;
   }
 }
+
+/* @theme {
+  --breakpoint-mobile: : ;
+} */
