@@ -11,8 +11,6 @@ import {
   formatDate,
 } from '../../utils/helpers';
 
-import OrderItem from './OrderItem';
-
 const order = {
   id: 'ABCDEF',
   customer: 'Jonas',
