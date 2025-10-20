@@ -5,10 +5,12 @@ import {
 import CartOverview from '../features/cart/CartOverview';
 import Header from './Header';
 import Loader from './Loader';
-import { useState } from 'react';
+import { useSelector } from 'react-redux';
 
 function AppLayout() {
-  const [counter] = useState(0);
+  const cart = useSelector(
+    (state) => state.cart.cart,
+  );
   const navigation = useNavigation();
   const isLoading =
     navigation.state === 'loading';
@@ -24,7 +26,7 @@ function AppLayout() {
         </main>
       </div>
 
-      <CartOverview />
+      {cart.length && <CartOverview />}
     </div>
   );
 }
