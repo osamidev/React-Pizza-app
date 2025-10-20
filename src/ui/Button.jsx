@@ -5,6 +5,7 @@ function Button({
   disabled,
   to,
   type,
+  onClick,
 }) {
   const base =
     'inline-block text-sm  rounded-full bg-yellow-400 text-sm font-semibold uppercase tracking-wide hover:bg-yellow-300 focus:outline-none focus:ring focus:ring-yellow-300 focus:ring-offset-2 disabled:cursor-not-allowed disabled:bg-stone-400';
@@ -21,6 +22,17 @@ function Button({
       <Link to={to} className={styles[type]}>
         {children}
       </Link>
+    );
+
+  if (onClick)
+    return (
+      <button
+        disabled={disabled}
+        className={styles[type]}
+        onClick={onClick}
+      >
+        {children}
+      </button>
     );
   return (
     <button
