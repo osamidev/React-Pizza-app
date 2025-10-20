@@ -1,6 +1,9 @@
 import LinkButton from '../../ui/LinkButton';
 import Button from '../../ui/Button';
 import CartItem from './CartItem';
+import Username from '../user/Username';
+import { updateUsername } from '../user/userSlice';
+import { useSelector } from 'react-redux';
 
 const fakeCart = [
   {
@@ -28,6 +31,9 @@ const fakeCart = [
 
 function Cart() {
   const cart = fakeCart;
+  const username = useSelector(
+    (state) => state.user.username,
+  );
 
   return (
     <div className="px-4 py-3">
@@ -36,7 +42,7 @@ function Cart() {
       </LinkButton>
 
       <h2 className="mt-7 text-lg font-semibold">
-        Your cart, %NAME%
+        Your cart, {username}
       </h2>
 
       <ul className="mt-3 divide-y divide-stone-200">
