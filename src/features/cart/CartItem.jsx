@@ -1,7 +1,7 @@
 import { useDispatch } from 'react-redux';
 import Button from '../../ui/Button';
 import { formatCurrency } from '../../utils/helpers';
-import { deleteItem } from './cartSice';
+import { deleteItem } from './cartSlice';
 
 function CartItem({ item }) {
   const { pizzaId, name, quantity, totalPrice } =
