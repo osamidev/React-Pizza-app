@@ -6,6 +6,7 @@ import CartOverview from '../features/cart/CartOverview';
 import Header from './Header';
 import Loader from './Loader';
 import { useSelector } from 'react-redux';
+import Cart from '../features/cart/Cart';
 
 function AppLayout() {
   const cart = useSelector(
@@ -26,7 +27,8 @@ function AppLayout() {
         </main>
       </div>
 
-      {cart.length && <CartOverview />}
+      <CartOverview />
+      {/* {cart.length && <CartOverview />} */}
     </div>
   );
 }

@@ -1,4 +1,3 @@
-import { useEffect, useState } from 'react';
 import {
   useDispatch,
   useSelector,
@@ -7,9 +6,10 @@ import { formatCurrency } from './../../utils/helpers';
 import Button from './../../ui/Button';
 import {
   addItem,
-  deleteItem,
+  getCurrentQuantityById,
 } from '../cart/cartSlice';
-import { use } from 'react';
+import DeleteButton from '../../ui/DeleteButton';
+import QuantitySelector from '../../ui/QuantitySelector';
 
 function MenuItem({ pizza }) {
   const {
@@ -20,14 +20,11 @@ function MenuItem({ pizza }) {
     soldOut,
     imageUrl,
   } = pizza;
-  // const cartItems = useSelector(
-  //   (state) => state.cart.cart,
-  // );
-  const inCart = useSelector((state) =>
-    state.cart.cart.some(
-      (item) => item.pizzaId === id,
-    ),
+  const quantity = useSelector(
+    getCurrentQuantityById(id),
   );
+  const inCart = quantity > 0;
+
   const dispatch = useDispatch();
 
   // useEffect(() => {
@@ -48,10 +45,6 @@ function MenuItem({ pizza }) {
     dispatch(addItem(newItem));
   }
 
-  function handleDeleteItem() {
-    dispatch(deleteItem(id));
-  }
-
   return (
     <li className="flex gap-4 py-4">
       <img
@@ -67,30 +60,35 @@ function MenuItem({ pizza }) {
           {ingredients.join(', ')}
         </p>
         <div className="mt-auto flex items-center justify-between">
-          {!soldOut ? (
-            <p>{formatCurrency(unitPrice)}</p>
-          ) : (
+          {soldOut && (
             <p className="text-base font-medium uppercase text-stone-500">
               Sold out
             </p>
           )}
 
-          {!soldOut &&
-            (inCart ? (
-              <Button
-                type="small"
-                onClick={handleDeleteItem}
-              >
-                Delete
-              </Button>
-            ) : (
-              <Button
-                type="small"
-                onClick={handleAddItem}
-              >
-                Add to cart
-              </Button>
-            ))}
+          {!soldOut && (
+            <div className="flex w-full items-center justify-between">
+              <p>{formatCurrency(unitPrice)}</p>
+              {quantity > 0 && (
+                <QuantitySelector
+                  quantity={quantity}
+                  id={id}
+                />
+              )}
+              {inCart ? (
+                <DeleteButton pizzaId={id}>
+                  Delete
+                </DeleteButton>
+              ) : (
+                <Button
+                  type="small"
+                  onClick={handleAddItem}
+                >
+                  Add to cart
+                </Button>
+              )}
+            </div>
+          )}
         </div>
       </div>
     </li>

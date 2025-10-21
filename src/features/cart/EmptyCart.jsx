@@ -2,7 +2,7 @@ import LinkButton from '../../ui/LinkButton';
 
 function EmptyCart() {
   return (
-    <div className="mt-2 text-stone-600">
+    <div className="mt-2 px-4 py-2 text-stone-600">
       <LinkButton to="/menu">
         &larr; Back to menu
       </LinkButton>
