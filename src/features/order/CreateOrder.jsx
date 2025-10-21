@@ -18,10 +18,8 @@ import {
 } from '../cart/cartSlice';
 import { useState } from 'react';
 import { formatCurrency } from '../../utils/helpers';
-import {
-  fetchAddress,
-  getGeoAddress,
-} from '../user/userSlice';
+import { fetchAddress } from '../user/userSlice';
+import EmptyCart from '../cart/EmptyCart';
 
 // https://uibakery.io/regex-library/phone-number
 const isValidPhone = (str) =>
@@ -87,6 +85,8 @@ function CreateOrder() {
   const totalPrice = totalCartPrice + priorityFee;
 
   const cart = useSelector(getCart);
+
+  if (cart.length === 0) return <EmptyCart />;
 
   return (
     <div className="px-4 py-6">

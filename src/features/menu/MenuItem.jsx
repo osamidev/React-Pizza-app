@@ -6,6 +6,7 @@ import { formatCurrency } from './../../utils/helpers';
 import Button from './../../ui/Button';
 import {
   addItem,
+  deleteItem,
   getCurrentQuantityById,
 } from '../cart/cartSlice';
 import DeleteButton from '../../ui/DeleteButton';
@@ -46,7 +47,6 @@ function MenuItem({ pizza }) {
   }
 
   function handleDeleteItem() {
-    setIsInCart(false);
     dispatch(deleteItem(id));
   }
 
@@ -82,7 +82,10 @@ function MenuItem({ pizza }) {
                 />
               )}
               {inCart ? (
-                <DeleteButton pizzaId={id}>
+                <DeleteButton
+                  pizzaId={id}
+                  onClick={handleDeleteItem}
+                >
                   Delete
                 </DeleteButton>
               ) : (

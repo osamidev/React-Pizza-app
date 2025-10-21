@@ -5,7 +5,6 @@ import {
 import CartOverview from '../features/cart/CartOverview';
 import Header from './Header';
 import Loader from './Loader';
-import { useSelector } from 'react-redux';
 // import Cart from '../features/cart/Cart';
 
 function AppLayout() {

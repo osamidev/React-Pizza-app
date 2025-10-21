@@ -24,7 +24,9 @@ function CartItem({ item }) {
           quantity={quantity}
           id={pizzaId}
         />
-        <DeleteButton>Delete</DeleteButton>
+        <DeleteButton pizzaId={pizzaId}>
+          Delete
+        </DeleteButton>
       </div>
     </li>
   );
