@@ -1,15 +1,17 @@
+import {
+  useDispatch,
+  useSelector,
+} from 'react-redux';
 import { formatCurrency } from './../../utils/helpers';
 import Button from './../../ui/Button';
-import { useDispatch } from 'react-redux';
 import {
   addItem,
-  deleteItem,
-} from '../cart/cartSice';
-import { useState } from 'react';
+  getCurrentQuantityById,
+} from '../cart/cartSlice';
+import DeleteButton from '../../ui/DeleteButton';
+import QuantitySelector from '../../ui/QuantitySelector';
 
 function MenuItem({ pizza }) {
-  const [isInCart, setIsInCart] = useState(false);
-  const dispatch = useDispatch();
   const {
     id,
     name,
@@ -18,16 +20,28 @@ function MenuItem({ pizza }) {
     soldOut,
     imageUrl,
   } = pizza;
+  const quantity = useSelector(
+    getCurrentQuantityById(id),
+  );
+  const inCart = quantity > 0;
+
+  const dispatch = useDispatch();
+
+  // useEffect(() => {
+  //   const isInCart = cartItems.some(
+  //     (item) => item.pizzaId === id,
+  //   );
+  //   setInCart(isInCart);
+  // }, [cartItems, id]);
 
   function handleAddItem() {
     const newItem = {
       pizzaId: id,
-      name: name,
+      name,
       quantity: 1,
-      unitPrice: unitPrice,
-      totalPrice: unitPrice * 1,
+      unitPrice,
+      totalPrice: unitPrice,
     };
-    setIsInCart(true);
     dispatch(addItem(newItem));
   }
 
@@ -41,7 +55,7 @@ function MenuItem({ pizza }) {
       <img
         src={imageUrl}
         alt={name}
-        className={`h-28 sm:h-36 md:h-48 ${soldOut ? 'grayscale' : ''}`}
+        className={`h-28 object-cover sm:h-36 md:h-48 ${soldOut ? 'grayscale' : ''}`}
       />
       <div className="flex grow flex-col">
         <p className="text-lg font-semibold">
@@ -51,30 +65,36 @@ function MenuItem({ pizza }) {
           {ingredients.join(', ')}
         </p>
         <div className="mt-auto flex items-center justify-between">
-          {!soldOut ? (
-            <p>{formatCurrency(unitPrice)}</p>
-          ) : (
+          {soldOut ? (
             <p className="text-base font-medium uppercase text-stone-500">
               Sold out
             </p>
+          ) : (
+            <p>{formatCurrency(unitPrice)}</p>
           )}
 
-          {!soldOut &&
-            (isInCart ? (
-              <Button
-                type="small"
-                onClick={handleDeleteItem}
-              >
-                Delete
-              </Button>
-            ) : (
-              <Button
-                type="small"
-                onClick={handleAddItem}
-              >
-                Add to cart
-              </Button>
-            ))}
+          {!soldOut && (
+            <div className="flex w-full items-center justify-end gap-2 md:gap-6">
+              {quantity > 0 && (
+                <QuantitySelector
+                  quantity={quantity}
+                  id={id}
+                />
+              )}
+              {inCart ? (
+                <DeleteButton pizzaId={id}>
+                  Delete
+                </DeleteButton>
+              ) : (
+                <Button
+                  type="small"
+                  onClick={handleAddItem}
+                >
+                  Add to cart
+                </Button>
+              )}
+            </div>
+          )}
         </div>
       </div>
     </li>

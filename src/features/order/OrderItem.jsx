@@ -9,7 +9,7 @@ function OrderItem({
 
   return (
     <li className="py-3">
-      <div className="flex items-center justify-between gap-4 text-sm">
+      <div className="flex items-center justify-between gap-4 space-y-1 text-sm">
         <p>
           <span className="font-bold">
             {quantity}&times;
@@ -20,6 +20,11 @@ function OrderItem({
           {formatCurrency(totalPrice)}
         </p>
       </div>
+      <p className="text-sm capitalize italic text-stone-500">
+        {isLoadingIngredients
+          ? 'loading...'
+          : ingredients.join(', ')}
+      </p>
     </li>
   );
 }
