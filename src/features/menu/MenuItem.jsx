@@ -60,15 +60,16 @@ function MenuItem({ pizza }) {
           {ingredients.join(', ')}
         </p>
         <div className="mt-auto flex items-center justify-between">
-          {soldOut && (
+          {soldOut ? (
             <p className="text-base font-medium uppercase text-stone-500">
               Sold out
             </p>
+          ) : (
+            <p>{formatCurrency(unitPrice)}</p>
           )}
 
           {!soldOut && (
-            <div className="flex w-full items-center justify-between">
-              <p>{formatCurrency(unitPrice)}</p>
+            <div className="flex w-full items-center justify-end gap-2 md:gap-6">
               {quantity > 0 && (
                 <QuantitySelector
                   quantity={quantity}
